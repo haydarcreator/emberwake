@@ -1,0 +1,97 @@
+{
+  "name": "emberwake",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Emberwake: a 2D arena survival game for 1 to 4 players.",
+  "scripts": {
+    "start": "node server.js",
+    "desktop": "electron .",
+    "dist:win": "electron-builder --win nsis msi --x64 --publish never",
+    "dist:linux": "electron-builder --linux AppImage deb --x64 --publish never",
+    "dist:mac": "electron-builder --mac dmg --arm64 --x64 --publish never",
+    "zip": "node tools/build-zip.mjs",
+    "icons": "node tools/make-icons.mjs",
+    "android:sync": "node tools/build-www.mjs && npx cap sync android",
+    "downloads": "node tools/list-downloads.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "productName": "Emberwake",
+  "author": {
+    "name": "Emberwake",
+    "email": "hello@example.com"
+  },
+  "homepage": "https://github.com/haydarcreator/emberwake",
+  "main": "desktop/main.js",
+  "build": {
+    "appId": "com.emberwake.game",
+    "productName": "Emberwake",
+    "copyright": "© 2026 Emberwake",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!dist/**",
+      "!downloads/**",
+      "!tools/**",
+      "!android/**",
+      "!www/**",
+      "!.github/**",
+      "!README.md",
+      "!capacitor.config.json",
+      "!desktop/after-pack.js"
+    ],
+    "win": {
+      "icon": "assets/icons/icon-512.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Emberwake",
+      "artifactName": "Emberwake-Setup-${version}-x64.${ext}"
+    },
+    "msi": {
+      "oneClick": false,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Emberwake",
+      "artifactName": "Emberwake-${version}-x64.${ext}"
+    },
+    "linux": {
+      "icon": "assets/icons/icon-512.png",
+      "category": "Game",
+      "synopsis": "2D arena survival for 1 to 4 players",
+      "maintainer": "Emberwake <hello@example.com>"
+    },
+    "appImage": {
+      "artifactName": "Emberwake-${version}-x86_64.${ext}"
+    },
+    "deb": {
+      "artifactName": "emberwake_${version}_amd64.${ext}"
+    },
+    "mac": {
+      "icon": "assets/icons/icon-512.png",
+      "category": "public.app-category.games",
+      "artifactName": "Emberwake-${version}-${arch}.${ext}",
+      "identity": null
+    },
+    "afterPack": "desktop/after-pack.js"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^6.2.0",
+    "@capacitor/cli": "^6.2.0",
+    "@capacitor/core": "^6.2.0",
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/haydarcreator/emberwake.git"
+  }
+}

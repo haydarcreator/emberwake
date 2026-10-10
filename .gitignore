@@ -1,0 +1,9 @@
+node_modules/
+dist/
+www/
+downloads/*.exe
+downloads/*.msi
+downloads/*.dmg
+downloads/*.AppImage
+downloads/*.deb
+downloads/*.apk

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Emberwake: Arena Survival for 1 to 4 Players</title>
+  <meta name="description" content="Emberwake is a free 2D arena survival game. Play solo, with friends on one screen, over your Wi-Fi or online. Runs in the browser and installs like an app.">
+  <meta name="theme-color" content="#140D0B">
+  <meta property="og:title" content="Emberwake">
+  <meta property="og:description" content="Hold the arena. Together. A free 2D arena survival game for 1 to 4 players.">
+  <meta property="og:image" content="assets/icons/icon-512.png">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container header-row">
+      <a href="index.html" class="brand" aria-label="Emberwake home">
+        <img src="assets/icons/logo.svg" alt="" width="32" height="32">
+        <span class="brand-name">EMBER<b>WAKE</b></span>
+      </a>
+      <nav class="main-nav" aria-label="Main">
+        <a href="#features">Features</a>
+        <a href="#modes">Modes</a>
+        <a href="#install">Install</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="header-end">
+        <div id="authSlot"></div>
+        <a href="play.html" class="btn btn-primary btn-sm hide-sm">Play now</a>
+        <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile" hidden>
+      <a href="play.html">Play now</a>
+      <a href="#features">Features</a>
+      <a href="#modes">Modes</a>
+      <a href="#install">Install</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </header>
+
+  <section class="hero-game">
+    <canvas id="heroCanvas" aria-hidden="true"></canvas>
+    <div class="hero-shade"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow">Free to play · 1 to 4 players</p>
+      <h1>Hold the arena.<br>Together.</h1>
+      <p class="lead">
+        Emberwake is a fast 2D arena game. Waves of monsters, a boss every five rounds,
+        and an upgrade after every win. Play alone, on one keyboard with a friend,
+        over your Wi-Fi or online.
+      </p>
+      <div class="hero-actions">
+        <a href="play.html" class="btn btn-primary btn-lg">Play now</a>
+        <a href="#install" class="btn btn-ghost btn-lg" id="heroDownload">Download</a>
+      </div>
+      <ul class="hero-facts">
+        <li>Keyboard, mouse and gamepad</li>
+        <li>Works offline</li>
+        <li>Windows · macOS · Linux · Android · iOS</li>
+      </ul>
+    </div>
+  </section>
+
+  <main id="main">
+    <section class="section" id="features" aria-labelledby="featTitle">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="featTitle">What you’re in for</h2>
+          <p>Short rounds, quick to learn, hard to put down.</p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="f-icon" aria-hidden="true">🔥</div>
+            <h3>Endless waves</h3>
+            <p>Slimes, bats, skeleton archers and charging brutes. Every wave is bigger and meaner than the last.</p>
+          </article>
+          <article class="feature">
+            <div class="f-icon" aria-hidden="true">👑</div>
+            <h3>The Hollow King</h3>
+            <p>Every fifth wave the boss arrives, filling the arena with bullets and calling in reinforcements. It gets angrier at half health.</p>
+          </article>
+          <article class="feature">
+            <div class="f-icon" aria-hidden="true">✨</div>
+            <h3>Build your mage</h3>
+            <p>Pick one of three upgrades after each wave: split shot, piercing bolts, faster casting, regeneration and more.</p>
+          </article>
+          <article class="feature">
+            <div class="f-icon" aria-hidden="true">🤝</div>
+            <h3>Real co-op</h3>
+            <p>When a friend goes down, stand next to them to bring them back. The run only ends when the whole team falls.</p>
+          </article>
+          <article class="feature">
+            <div class="f-icon" aria-hidden="true">⚔️</div>
+            <h3>Versus mode</h3>
+            <p>Turn on each other. First to seven kills, or whoever leads when the three-minute clock runs out.</p>
+          </article>
+          <article class="feature">
+            <div class="f-icon" aria-hidden="true">🎮</div>
+            <h3>Play your way</h3>
+            <p>Mouse aiming, auto-aim on the keyboard, or twin-stick on a gamepad. Up to four controllers on one screen.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="modes" aria-labelledby="modesTitle">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="modesTitle">Four ways to play</h2>
+          <p>Every mode runs the same game. Pick whichever fits your evening.</p>
+        </div>
+        <div class="modes-grid">
+          <article class="mode">
+            <span class="mode-n">1</span>
+            <h3>Solo</h3>
+            <p>Just you and the horde. See how many waves you last.</p>
+            <a href="play.html#solo" class="text-link">Start a solo run →</a>
+          </article>
+          <article class="mode">
+            <span class="mode-n">2–4</span>
+            <h3>Local, same screen</h3>
+            <p>Two players share the keyboard (WASD and arrows), plus up to four gamepads.</p>
+            <a href="play.html#local" class="text-link">Set up local play →</a>
+          </article>
+          <article class="mode">
+            <span class="mode-n">LAN</span>
+            <h3>Same Wi-Fi</h3>
+            <p>One computer runs the game server. Everyone else on the network joins with a 4-letter room code.</p>
+            <a href="#lan" class="text-link">How to host →</a>
+          </article>
+          <article class="mode">
+            <span class="mode-n">🌐</span>
+            <h3>Online</h3>
+            <p>Create a room, send the code to your friends, and play from anywhere.</p>
+            <a href="play.html#online" class="text-link">Open online play →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="install" aria-labelledby="installTitle">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="installTitle">Download Emberwake</h2>
+          <p>Free on Windows, macOS, Linux and Android. We picked the right file for your device.</p>
+        </div>
+
+        <div class="dl-hero" id="dlHero">
+          <div class="dl-hero-text">
+            <span class="dl-os" id="dlOsName">Your computer</span>
+            <strong id="dlTitle">Download Emberwake</strong>
+            <span class="dl-meta" id="dlMeta"></span>
+          </div>
+          <div class="dl-hero-actions" id="dlPrimary"></div>
+        </div>
+
+        <h3 class="dl-sub">All platforms</h3>
+        <div class="dl-grid" id="dlGrid"></div>
+
+        <div class="tabs" role="tablist" aria-label="Install instructions">
+          <button type="button" role="tab" class="tab" id="tab-windows" data-os="windows" aria-controls="panel-windows" aria-selected="false">Windows</button>
+          <button type="button" role="tab" class="tab" id="tab-macos" data-os="macos" aria-controls="panel-macos" aria-selected="false">macOS</button>
+          <button type="button" role="tab" class="tab" id="tab-linux" data-os="linux" aria-controls="panel-linux" aria-selected="false">Linux</button>
+          <button type="button" role="tab" class="tab" id="tab-android" data-os="android" aria-controls="panel-android" aria-selected="false">Android</button>
+          <button type="button" role="tab" class="tab" id="tab-ios" data-os="ios" aria-controls="panel-ios" aria-selected="false">iPhone &amp; iPad</button>
+        </div>
+        <div class="install-panels">
+          <div role="tabpanel" class="install-panel" id="panel-windows" aria-labelledby="tab-windows" hidden>
+            <ol>
+              <li>Download the <strong>.msi</strong> (or the <strong>.exe</strong> setup) and open it.</li>
+              <li>If Windows shows “Windows protected your PC”, click <strong>More info</strong>, then <strong>Run anyway</strong>. This appears for new games that aren’t code-signed yet.</li>
+              <li>Follow the installer. Emberwake gets a Start menu entry and a desktop shortcut.</li>
+              <li>The first time you host a LAN game, allow Emberwake through the Windows firewall on <strong>private networks</strong>.</li>
+            </ol>
+            <p class="small-note">To uninstall: Settings → Apps → Installed apps → Emberwake.</p>
+          </div>
+          <div role="tabpanel" class="install-panel" id="panel-macos" aria-labelledby="tab-macos" hidden>
+            <ol>
+              <li>Download the <strong>.dmg</strong> for your Mac: <strong>Apple silicon</strong> (M1 and later) or <strong>Intel</strong>. Not sure? Apple menu → About This Mac.</li>
+              <li>Open the .dmg and drag <strong>Emberwake</strong> into <strong>Applications</strong>.</li>
+              <li>The first time, <strong>right-click</strong> Emberwake in Applications and choose <strong>Open</strong>, then <strong>Open</strong> again. After that it opens normally.</li>
+            </ol>
+          </div>
+          <div role="tabpanel" class="install-panel" id="panel-linux" aria-labelledby="tab-linux" hidden>
+            <ol>
+              <li><strong>Any distribution:</strong> download the <strong>.AppImage</strong>, make it executable and run it:</li>
+            </ol>
+            <div class="code-line"><code>chmod +x Emberwake-*.AppImage &amp;&amp; ./Emberwake-*.AppImage</code><button type="button" class="copy" aria-label="Copy command">Copy</button></div>
+            <ol start="2">
+              <li><strong>Ubuntu, Debian, Mint:</strong> download the <strong>.deb</strong> and install it:</li>
+            </ol>
+            <div class="code-line"><code>sudo apt install ./emberwake_*_amd64.deb</code><button type="button" class="copy" aria-label="Copy command">Copy</button></div>
+          </div>
+          <div role="tabpanel" class="install-panel" id="panel-android" aria-labelledby="tab-android" hidden>
+            <ol>
+              <li>Download the <strong>.apk</strong> on your phone or tablet.</li>
+              <li>Open it. If Android asks, allow your browser to <strong>install unknown apps</strong>.</li>
+              <li>Tap <strong>Install</strong>. Play with the on-screen sticks or a Bluetooth gamepad.</li>
+            </ol>
+          </div>
+          <div role="tabpanel" class="install-panel" id="panel-ios" aria-labelledby="tab-ios" hidden>
+            <p class="small-note" style="margin:0 0 12px">Apple only allows apps on iPhone and iPad through the App Store, so there’s no file to download. You can still install Emberwake from Safari:</p>
+            <ol>
+              <li>Open this page in <strong>Safari</strong>.</li>
+              <li>Tap the <strong>Share</strong> button, then <strong>Add to Home Screen</strong>.</li>
+              <li>Open Emberwake from your home screen. It runs full-screen with touch controls.</li>
+            </ol>
+          </div>
+        </div>
+
+        <p class="web-alt">
+          Don’t want to install anything? <a href="play.html">Play in your browser</a>.
+          <span id="pwaAlt" hidden>You can also <button type="button" class="link-btn" data-install>install the web version</button> (tiny, updates itself).</span>
+        </p>
+
+        <div class="lan-box" id="lan">
+          <div>
+            <h3>Host a LAN party</h3>
+            <p>Playing on the same Wi-Fi needs the small Emberwake server on one computer. It needs <a href="https://nodejs.org" target="_blank" rel="noopener">Node.js</a> 18 or newer and nothing else.</p>
+            <ol>
+              <li><a href="downloads/emberwake.zip" download>Download the game (.zip, about 100 KB)</a>, unzip it and open a terminal in the folder.</li>
+              <li>Run the server:</li>
+            </ol>
+            <div class="code-line"><code>node server.js</code><button type="button" class="copy" aria-label="Copy command">Copy</button></div>
+            <ol start="3">
+              <li>It prints an address like <code>http://192.168.1.20:8080</code>. Everyone opens it, picks <strong>Online &amp; LAN</strong>, and joins your room code.</li>
+            </ol>
+          </div>
+          <div class="spec">
+            <h3>System requirements</h3>
+            <dl>
+              <div><dt>Browser</dt><dd>Chrome, Edge, Safari or Firefox from 2022 or later</dd></div>
+              <div><dt>Screen</dt><dd>1280 × 720 or larger recommended</dd></div>
+              <div><dt>Controls</dt><dd>Keyboard and mouse, or a standard gamepad</dd></div>
+              <div><dt>Online</dt><dd>Any broadband or Wi-Fi connection</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="faq" aria-labelledby="faqTitle">
+      <div class="container narrow-container">
+        <div class="section-head"><h2 id="faqTitle">Questions</h2></div>
+        <details class="faq"><summary>Is Emberwake free?</summary><p>Yes. No ads, no purchases, no account required.</p></details>
+        <details class="faq"><summary>Why should I create an account?</summary><p>An account keeps your best wave, score and wins, and uses your name in online games. You can sign in with Google or with an email and password.</p></details>
+        <details class="faq"><summary>Windows says “Windows protected your PC”. Is it safe?</summary><p>Windows shows this for new apps that haven’t built up a reputation or been code-signed yet. Click <strong>More info</strong>, then <strong>Run anyway</strong>. Every installer on this page is built automatically from the game’s source code.</p></details>
+        <details class="faq"><summary>Is there an iPhone app?</summary><p>Apple only allows App Store apps on iPhone and iPad. Until Emberwake is on the App Store, open this page in Safari and use Share → Add to Home Screen. You get a full-screen game with touch controls.</p></details>
+        <details class="faq"><summary>Can I play offline?</summary><p>Once installed, solo and local multiplayer work without a connection. Online and LAN play need the game server.</p></details>
+        <details class="faq"><summary>Which gamepads work?</summary><p>Xbox, PlayStation, Switch Pro and most USB or Bluetooth controllers that your browser recognises as a standard gamepad.</p></details>
+      </div>
+    </section>
+
+    <section class="section cta-band">
+      <div class="container cta-inner">
+        <h2>The arena is waiting.</h2>
+        <a href="play.html" class="btn btn-primary btn-lg">Play now</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="brand brand-footer"><img src="assets/icons/logo.svg" alt="" width="28" height="28"><span class="brand-name">EMBER<b>WAKE</b></span></a>
+        <p class="footer-note">A free 2D arena game for 1 to 4 players. All art and sound are generated in code.</p>
+      </div>
+      <nav aria-label="Game"><h4>Game</h4><a href="play.html">Play</a><a href="#install">Install</a><a href="#lan">Host a LAN party</a></nav>
+      <nav aria-label="Account"><h4>Account</h4><a href="account.html">Your profile</a><a href="#" data-auth="signup">Create an account</a></nav>
+      <nav aria-label="Legal"><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a></nav>
+    </div>
+    <div class="container footer-base">© <span class="year">2026</span> Emberwake</div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="shared/sim.js"></script>
+  <script src="js/game/render.js"></script>
+  <script src="js/hero.js"></script>
+  <script src="js/auth-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/pwa.js"></script>
+  <script src="js/downloads.js"></script>
+  <script src="js/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Play Emberwake</title>
+  <meta name="description" content="Play Emberwake: a 2D arena survival game for 1 to 4 players.">
+  <meta name="theme-color" content="#140D0B">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/game.css">
+</head>
+<body class="game-page">
+  <canvas id="game" aria-label="Emberwake game"></canvas>
+
+  <div id="ui">
+    <!-- Main menu -->
+    <section class="screen" id="scr-menu">
+      <div class="menu-wrap">
+        <div class="title-block">
+          <img src="assets/icons/logo.svg" alt="" width="72" height="72">
+          <h1 class="game-title">EMBERWAKE</h1>
+          <p class="tagline">Hold the arena. Together.</p>
+        </div>
+        <nav class="menu-list" aria-label="Main menu">
+          <button type="button" class="menu-btn primary" data-action="solo">Solo</button>
+          <button type="button" class="menu-btn" data-go="local">Local multiplayer</button>
+          <button type="button" class="menu-btn" data-go="online">Online &amp; LAN</button>
+          <button type="button" class="menu-btn" data-go="settings">Settings</button>
+          <button type="button" class="menu-btn" data-go="howto">How to play</button>
+          <a class="menu-btn subtle" href="index.html">Back to website</a>
+        </nav>
+        <div class="menu-foot">
+          <div id="menuAccount" class="menu-account"></div>
+          <div id="menuStats" class="menu-stats"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Local multiplayer -->
+    <section class="screen" id="scr-local" hidden>
+      <div class="panel wide">
+        <h2>Local multiplayer</h2>
+        <p class="muted">Up to 4 players on this computer. Each player presses their button to join.</p>
+        <div class="seg" role="radiogroup" aria-label="Game mode" id="localMode">
+          <button type="button" role="radio" data-mode="coop" aria-checked="true">Survival (co-op)</button>
+          <button type="button" role="radio" data-mode="versus" aria-checked="false">Versus</button>
+        </div>
+        <div class="join-grid" id="joinGrid"></div>
+        <ul class="join-hints">
+          <li><kbd>Space</kbd> Keyboard left (WASD)</li>
+          <li><kbd>Enter</kbd> Keyboard right (arrows)</li>
+          <li><kbd>A</kbd> Any gamepad</li>
+        </ul>
+        <p class="form-error" id="localError" hidden></p>
+        <div class="row-actions">
+          <button type="button" class="menu-btn subtle" data-go="menu">Back</button>
+          <button type="button" class="menu-btn primary" id="localStart">Start game</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Online -->
+    <section class="screen" id="scr-online" hidden>
+      <div class="panel">
+        <h2>Online &amp; LAN</h2>
+        <p class="muted" id="netStatus">Connecting…</p>
+        <div class="split tight">
+          <label class="field"><span>Your name</span><input id="netName" maxlength="16" autocomplete="nickname"></label>
+          <label class="field"><span>Server address</span><input id="netServer" autocomplete="off" spellcheck="false" placeholder="192.168.1.20:8080"></label>
+        </div>
+        <div class="split">
+          <div>
+            <h3>Create a room</h3>
+            <div class="seg small" role="radiogroup" aria-label="Room mode" id="createMode">
+              <button type="button" role="radio" data-mode="coop" aria-checked="true">Survival</button>
+              <button type="button" role="radio" data-mode="versus" aria-checked="false">Versus</button>
+            </div>
+            <button type="button" class="menu-btn primary" id="createRoom">Create room</button>
+          </div>
+          <div>
+            <h3>Join a room</h3>
+            <label class="field"><span>Room code</span><input id="joinCode" maxlength="4" autocomplete="off" placeholder="ABCD" class="code-input"></label>
+            <button type="button" class="menu-btn" id="joinRoom">Join</button>
+          </div>
+        </div>
+        <p class="form-error" id="netError" hidden></p>
+        <div class="row-actions"><button type="button" class="menu-btn subtle" data-go="menu">Back</button></div>
+      </div>
+    </section>
+
+    <!-- Lobby -->
+    <section class="screen" id="scr-lobby" hidden>
+      <div class="panel">
+        <p class="muted">Room code</p>
+        <div class="room-code"><span id="roomCode">----</span><button type="button" class="link-btn" id="copyCode">Copy</button></div>
+        <p class="muted small" id="lobbyHint"></p>
+        <div class="seg small" role="radiogroup" aria-label="Room mode" id="lobbyMode">
+          <button type="button" role="radio" data-mode="coop">Survival</button>
+          <button type="button" role="radio" data-mode="versus">Versus</button>
+        </div>
+        <ul class="lobby-list" id="lobbyList"></ul>
+        <p class="form-error" id="lobbyError" hidden></p>
+        <div class="row-actions">
+          <button type="button" class="menu-btn subtle" id="leaveRoom">Leave</button>
+          <button type="button" class="menu-btn" id="readyBtn">Ready</button>
+          <button type="button" class="menu-btn primary" id="startRoom">Start</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Settings -->
+    <section class="screen" id="scr-settings" hidden>
+      <div class="panel">
+        <h2>Settings</h2>
+        <label class="slider"><span>Master volume</span><input type="range" min="0" max="1" step="0.05" data-set="master"></label>
+        <label class="slider"><span>Music</span><input type="range" min="0" max="1" step="0.05" data-set="music"></label>
+        <label class="slider"><span>Sound effects</span><input type="range" min="0" max="1" step="0.05" data-set="sfx"></label>
+        <label class="toggle"><input type="checkbox" data-set="shake"><span>Screen shake</span></label>
+        <label class="toggle"><input type="checkbox" data-set="autoFire"><span>Auto-fire (always shoot at the nearest enemy)</span></label>
+        <label class="toggle"><input type="checkbox" data-set="fps"><span>Show FPS</span></label>
+        <div class="row-actions"><button type="button" class="menu-btn" data-back>Back</button></div>
+      </div>
+    </section>
+
+    <!-- How to play -->
+    <section class="screen" id="scr-howto" hidden>
+      <div class="panel wide">
+        <h2>How to play</h2>
+        <div class="howto-grid">
+          <div>
+            <h3>Survival</h3>
+            <p>Waves of monsters pour into the arena. Clear a wave to pick an upgrade. Every fifth wave, the Hollow King shows up.</p>
+            <p>When a teammate falls, stand next to them to revive them. If everyone is down, the run ends.</p>
+            <h3>Versus</h3>
+            <p>Everyone for themselves. First to 7 kills wins, or whoever leads when the 3-minute clock runs out.</p>
+          </div>
+          <div>
+            <table class="keys">
+              <thead><tr><th></th><th>Solo / online</th><th>Local P1</th><th>Local P2</th><th>Gamepad</th></tr></thead>
+              <tbody>
+                <tr><th>Move</th><td>WASD / arrows</td><td>WASD</td><td>Arrows</td><td>Left stick</td></tr>
+                <tr><th>Shoot</th><td>Click (aim) or Space (auto-aim)</td><td>Space</td><td>Enter</td><td>Right stick or RT</td></tr>
+                <tr><th>Dash</th><td>Shift or right click</td><td>Left Shift</td><td>Right Shift</td><td>B or LB</td></tr>
+                <tr><th>Upgrade</th><td>1 2 3 or click</td><td>A / D + Space</td><td>← / → + Enter</td><td>D-pad + A</td></tr>
+                <tr><th>Pause</th><td>Esc</td><td colspan="2">Esc</td><td>Start</td></tr>
+              </tbody>
+            </table>
+            <p class="small muted" style="margin-top:12px"><b>Touch screens:</b> drag on the left half to move, on the right half to aim and shoot (tap to shoot with auto-aim), and press DASH to dodge.</p>
+          </div>
+        </div>
+        <div class="row-actions"><button type="button" class="menu-btn" data-go="menu">Back</button></div>
+      </div>
+    </section>
+
+    <!-- Pause -->
+    <section class="screen" id="scr-pause" hidden>
+      <div class="panel narrow">
+        <h2>Paused</h2>
+        <p class="muted small" id="pauseNote"></p>
+        <button type="button" class="menu-btn primary" id="resumeBtn">Resume</button>
+        <button type="button" class="menu-btn" data-go="settings">Settings</button>
+        <button type="button" class="menu-btn subtle" id="quitBtn">Quit to menu</button>
+      </div>
+    </section>
+
+    <!-- Game over -->
+    <section class="screen" id="scr-over" hidden>
+      <div class="panel">
+        <h2 id="overTitle">Game over</h2>
+        <p class="muted" id="overSub"></p>
+        <table class="results" id="overTable"></table>
+        <div class="row-actions">
+          <button type="button" class="menu-btn subtle" id="overMenu">Main menu</button>
+          <button type="button" class="menu-btn primary" id="overAgain">Play again</button>
+        </div>
+      </div>
+    </section>
+
+    <div id="upgrades" hidden></div>
+    <div id="fps" hidden></div>
+    <button type="button" id="pauseBtn" class="pause-btn" aria-label="Pause" hidden>II</button>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="shared/sim.js"></script>
+  <script src="js/game/render.js"></script>
+  <script src="js/game/audio.js"></script>
+  <script src="js/game/input.js"></script>
+  <script src="js/game/net.js"></script>
+  <script src="js/auth-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/game/main.js"></script>
+  <script src="js/pwa.js"></script>
+</body>
+</html>

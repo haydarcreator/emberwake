@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Emberwake">
+  <rect width="64" height="64" rx="14" fill="#140D0B"/>
+  <path d="M28 7c1 9 19 17 19 33a15 15 0 0 1-30 0c0-12 10-19 11-33z" fill="#FF7A3D"/>
+  <path d="M30 23c0 6 10 11 10 22a8 8 0 0 1-16 0c0-8 6-13 6-22z" fill="#FFD166"/>
+</svg>

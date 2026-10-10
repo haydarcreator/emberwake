@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Your Profile | Emberwake</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#140D0B">
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="css/landing.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-row">
+      <a href="index.html" class="brand" aria-label="Emberwake home">
+        <img src="assets/icons/logo.svg" alt="" width="32" height="32">
+        <span class="brand-name">EMBER<b>WAKE</b></span>
+      </a>
+      <nav class="main-nav" aria-label="Main">
+        <a href="index.html#features">Features</a>
+        <a href="index.html#modes">Modes</a>
+        <a href="index.html#install">Install</a>
+      </nav>
+      <div class="header-end">
+        <div id="authSlot"></div>
+        <a href="play.html" class="btn btn-primary btn-sm hide-sm">Play now</a>
+        <button type="button" class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileNav"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobileNav" aria-label="Mobile" hidden>
+      <a href="play.html">Play now</a>
+      <a href="index.html#features">Features</a>
+      <a href="index.html#install">Install</a>
+    </nav>
+  </header>
+
+  <main class="container account-wrap">
+    <div id="gate" class="gate" hidden>
+      <h1>Sign in to see your profile</h1>
+      <p>Your profile keeps your best wave, high score and versus wins, and gives you your name in online games.</p>
+      <button type="button" class="btn btn-primary" data-auth="signin">Sign in</button>
+      <p style="margin-top:16px;font-size:14px">No account yet? <button type="button" class="link-btn" data-auth="signup">Create one</button></p>
+    </div>
+
+    <div id="profile" hidden>
+      <div class="account-head">
+        <div class="big-avatar" id="pAvatar"></div>
+        <div>
+          <h1 id="pName"></h1>
+          <p id="pEmail"></p>
+        </div>
+        <a href="play.html" class="btn btn-primary" style="margin-left:auto">Play</a>
+      </div>
+
+      <div class="stat-grid" id="stats"></div>
+
+      <div class="account-grid" style="margin-top:24px">
+        <section class="card" aria-labelledby="detailsTitle">
+          <h2 id="detailsTitle">Account</h2>
+          <dl>
+            <div><dt>Signed in with</dt><dd id="pProvider"></dd></div>
+            <div><dt>Email</dt><dd id="pVerified"></dd></div>
+            <div><dt>Member since</dt><dd id="pSince"></dd></div>
+          </dl>
+          <div class="card-actions">
+            <button type="button" class="btn btn-secondary" id="signOutBtn">Sign out</button>
+            <button type="button" class="btn btn-danger" id="deleteBtn">Delete account</button>
+          </div>
+        </section>
+        <section class="card" aria-labelledby="aboutTitle">
+          <h2 id="aboutTitle">About your stats</h2>
+          <p class="muted-p">Stats are saved in this browser and linked to your account here. Games you play in another browser or on another device are counted there.</p>
+          <p class="muted-p" id="lastPlayed"></p>
+          <button type="button" class="link-btn" id="resetStats">Reset my stats</button>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <a href="index.html" class="brand brand-footer"><img src="assets/icons/logo.svg" alt="" width="28" height="28"><span class="brand-name">EMBER<b>WAKE</b></span></a>
+        <p class="footer-note">A free 2D arena game for 1 to 4 players. All art and sound are generated in code.</p>
+      </div>
+      <nav aria-label="Game"><h4>Game</h4><a href="play.html">Play</a><a href="index.html#install">Install</a><a href="index.html#lan">Host a LAN party</a></nav>
+      <nav aria-label="Account"><h4>Account</h4><a href="account.html">Your profile</a><a href="#" data-auth="signup">Create an account</a></nav>
+      <nav aria-label="Legal"><h4>Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Use</a></nav>
+    </div>
+    <div class="container footer-base">© <span class="year">2026</span> Emberwake</div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/auth-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/profile.js"></script>
+  <script src="js/pwa.js"></script>
+  <script src="js/site.js"></script>
+  <script>
+    (function () {
+      const $ = (s) => document.querySelector(s);
+      const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+      const fmt = (d) => new Date(d).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+
+      function renderStats() {
+        const s = EmberProfile.stats();
+        const hours = s.playSeconds >= 3600 ? (s.playSeconds / 3600).toFixed(1) + ' h' : Math.round(s.playSeconds / 60) + ' min';
+        const tiles = [
+          ['Best wave', s.bestWave], ['High score', s.bestScore], ['Total kills', s.kills],
+          ['Versus wins', `${s.versusWins}<small> / ${s.versusGames}</small>`], ['Games played', s.games], ['Time played', hours],
+        ];
+        $('#stats').innerHTML = tiles.map(([k, v]) => `<div class="stat"><span>${k}</span><strong>${v}</strong></div>`).join('');
+        $('#lastPlayed').textContent = s.last ? 'Last game: ' + new Date(s.last).toLocaleString() : 'No games played yet.';
+      }
+
+      SiteAuth.ready.then(() => {
+        SiteAuth.onChange((user) => {
+          $('#gate').hidden = !!user;
+          $('#profile').hidden = !user;
+          if (!user) return;
+          const initials = user.name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('');
+          $('#pAvatar').innerHTML = user.photo ? `<img src="${esc(user.photo)}" alt="" referrerpolicy="no-referrer">` : esc(initials);
+          $('#pName').textContent = user.name;
+          $('#pEmail').textContent = user.email;
+          $('#pProvider').textContent = SiteAuth.providerName(user.provider);
+          $('#pVerified').innerHTML = user.provider !== 'email' || user.emailVerified
+            ? '<span class="pill pill-ok">Verified</span>'
+            : (SiteAuth.mode === 'demo' ? '<span class="pill">Demo account</span>' : '<span class="pill">Check your inbox to verify</span>');
+          $('#pSince').textContent = user.createdAt ? fmt(user.createdAt) : '—';
+          renderStats();
+        });
+      });
+
+      $('#signOutBtn').addEventListener('click', () => SiteAuth.signOut());
+      $('#resetStats').addEventListener('click', () => {
+        if (!confirm('Reset all your Emberwake stats? This cannot be undone.')) return;
+        EmberProfile.clear();
+        renderStats();
+        SiteToast('Your stats were reset.');
+      });
+      $('#deleteBtn').addEventListener('click', async () => {
+        if (!confirm('Delete your account? Your profile and stats will be removed. This cannot be undone.')) return;
+        const uid = SiteAuth.user && SiteAuth.user.uid;
+        try {
+          await SiteAuth.deleteAccount();
+          if (uid) EmberProfile.clear(uid);
+          SiteToast('Your account was deleted.');
+        } catch (err) {
+          SiteToast(SiteAuth.messageFor(err));
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
