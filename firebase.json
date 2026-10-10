@@ -1,0 +1,58 @@
+{
+  "hosting": {
+    "site": "emberwake",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".firebaserc",
+      "**/.*",
+      "**/node_modules/**",
+      "server.js",
+      "package.json",
+      "package-lock.json",
+      "capacitor.config.json",
+      "README.md",
+      "android/**",
+      "desktop/**",
+      "dist/**",
+      "tools/**",
+      "www/**",
+      "downloads/*.exe",
+      "downloads/*.msi",
+      "downloads/*.dmg",
+      "downloads/*.AppImage",
+      "downloads/*.deb",
+      "downloads/*.apk"
+    ],
+    "cleanUrls": false,
+    "headers": [
+      {
+        "source": "**/*.@(html|js|css|json|webmanifest)",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "no-cache"
+          }
+        ]
+      },
+      {
+        "source": "assets/**",
+        "headers": [
+          {
+            "key": "Cache-Control",
+            "value": "public, max-age=86400"
+          }
+        ]
+      },
+      {
+        "source": "**",
+        "headers": [
+          {
+            "key": "X-Content-Type-Options",
+            "value": "nosniff"
+          }
+        ]
+      }
+    ]
+  }
+}

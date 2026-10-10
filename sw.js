@@ -1,6 +1,6 @@
 // Service worker: caches the game so it starts instantly and works offline.
 // Bump VERSION when the list of files changes.
-const VERSION = 'emberwake-v4';
+const VERSION = 'emberwake-v5';
 const CORE = [
   './', 'index.html', 'play.html', 'account.html', 'privacy.html', 'terms.html',
   'css/site.css', 'css/game.css', 'css/landing.css',

@@ -107,3 +107,17 @@ warn on first launch. To remove the warnings: sign Windows builds (for example
 Azure Trusted Signing, about 10 USD/month) and sign + notarize macOS builds
 (Apple Developer Program, 99 USD/year). electron-builder picks up the
 certificates from environment variables.
+
+## Website hosting (Firebase)
+
+The site is live at https://emberwake.web.app (Firebase Hosting, project
+`java-sev`, site `emberwake`). To publish changes:
+
+```
+npx firebase-tools deploy --only hosting
+```
+
+`firebase.json` publishes the site and game only (no server, tools or
+installers). Firebase Hosting can't run `server.js`, so online multiplayer
+needs the server hosted elsewhere (for example Render); LAN play works with
+the desktop app.

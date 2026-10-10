@@ -13,7 +13,7 @@ window.AUTH_CONFIG = {
     projectId: 'java-sev',
     storageBucket: 'java-sev.firebasestorage.app',
     messagingSenderId: '49059981762',
-    appId: '1:49059981762:web:cdef12a071357b87528e5b',
+    appId: '1:49059981762:web:7e85a837086226f7528e5b',
   },
 
   // Each provider must also be enabled in
