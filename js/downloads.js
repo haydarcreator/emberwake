@@ -8,7 +8,7 @@
  */
 window.EMBER_DOWNLOADS = {
   version: '1.0.0',
-  base: 'downloads/',
+  base: 'https://github.com/haydarcreator/emberwake/releases/latest/download/',
   platforms: {
     windows: { name: 'Windows', note: 'Windows 10 and 11, 64-bit', files: [
       { label: 'Installer (.msi)', file: 'Emberwake-{v}-x64.msi' },
@@ -40,16 +40,14 @@ window.EMBER_DOWNLOADS = {
     : /Linux|X11|CrOS/.test(ua) ? 'linux' : 'windows';
 
   const url = (f) => D.base + f.file.replace('{v}', D.version);
-  const sameOrigin = !/^https?:\/\//.test(D.base);
   const mb = (n) => (n / 1e6).toFixed(0) + ' MB';
   const DL = '<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
-  // Files hosted on this site are listed in downloads/files.json
-  // (written by tools/list-downloads.mjs) with their sizes.
+  // downloads/files.json lists the installers that exist, with their sizes
+  // (tools/list-downloads.mjs writes it, from downloads/ or a GitHub release).
   let listing = null;
   async function probe(f) {
-    if (!sameOrigin) return { ok: true };
-    if (!listing) listing = fetch(D.base + 'files.json', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : {})).catch(() => ({}));
+    if (!listing) listing = fetch('downloads/files.json', { cache: 'no-store' }).then((r) => (r.ok ? r.json() : {})).catch(() => ({}));
     const size = (await listing)[f.file.replace('{v}', D.version)];
     return { ok: size != null, size };
   }

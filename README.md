@@ -81,9 +81,11 @@ and macOS machines:
 1. Create a repository on github.com and push this folder to it.
 2. Push a version tag: `git tag v1.0.0 && git push --tags`.
 3. After ~15 minutes the installers are on the repository's **Releases** page.
-4. In `js/downloads.js`, set
-   `base: 'https://github.com/YOUR-NAME/YOUR-REPO/releases/latest/download/'`
-   so the website's download buttons point to them.
+4. Run `node tools/list-downloads.mjs v1.0.0` (with the new tag) so the website
+   lists the new files. `js/downloads.js` already points to
+   https://github.com/haydarcreator/emberwake/releases/latest/download/.
+5. For a new version, bump `version` in `package.json`, `js/downloads.js` and
+   `android/app/build.gradle`, then tag again (v1.1.0, ...).
 
 To sign the Android app (needed for updates to install over older versions),
 create a keystore once and add these repository secrets:

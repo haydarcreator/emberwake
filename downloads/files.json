@@ -1,5 +1,9 @@
 {
+  "Emberwake-1.0.0-arm64.dmg": 97299298,
+  "Emberwake-1.0.0-x64.dmg": 104613520,
   "Emberwake-1.0.0-x64.msi": 92327936,
-  "Emberwake-Setup-1.0.0-x64.exe": 81801276,
-  "emberwake.zip": 104812
+  "Emberwake-1.0.0-x86_64.AppImage": 108059362,
+  "Emberwake-1.0.0.apk": 3761020,
+  "Emberwake-Setup-1.0.0-x64.exe": 81801501,
+  "emberwake_1.0.0_amd64.deb": 75107180
 }
